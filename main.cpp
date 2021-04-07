@@ -30,6 +30,7 @@ void doDAC();
 void ISR3()
 {
     queue.call(doDAC);
+    
     check = 1;
 }
 
@@ -59,37 +60,49 @@ void doDAC()
     float bound = 3/3.3f;
     float step1 = 3/3.3f/40;
     float step2 = 3/3.3f/40; 
-    float launch_time = 0;
+//    float launch_time = 0;
 
-    if (mode < 2) launch_time = 1.0/(100*(mode+1))*2*1000000;
-    if (mode >= 2) launch_time = 1.0/(100*(mode+2))*2*1000000;
-    float ADCdata[200];
+    //if (mode < 2) launch_time = ;
+    //if (mode >= 2) launch_time = 1.0/(100*(mode+2))*2*1000000;
+    float ADCdata[120];
 
 
     while(1) {
         for (float i = 0.0f; i < bound; i += step1) {
             aout = i;
-//            if (cnt > 20 && cnt < 23 && k < 200) {
-//                ADCdata[k] = Ain;
-//                k++;
-//            } 
+            if (cnt > 20 && cnt < 22 && k < 120) {
+                ADCdata[k] = Ain;
+                k++;
+            } 
             
             wait_us(delay_time);
         }
         for (int j = 0; j < 40; j++) {
             aout = 3/3.3f;
+            if (cnt > 20 && cnt < 22 && k < 120) {
+                ADCdata[k] = Ain;
+                k++;
+            }             
             wait_us(dt);
         }
         for (float i = bound; i > 0.0f; i -= step2) {
             aout = i;
-//            if (cnt > 20 && cnt < 23 && k < 200) {
-//                ADCdata[k] = Ain;
-//                k++;
-//            } 
+            if (cnt > 20 && cnt < 22 && k < 120) {
+                ADCdata[k] = Ain;
+                k++;
+            } 
             
             wait_us(delay_time);
-        }        
+        }   
 
+        if (cnt == 22) {
+//            printf("%f\r\n", launch_time);
+//            printf("%f\r\n", launch_time);
+            for (k = 0; k < 240; k++)
+                printf("%f\r\n", ADCdata[k]);
+        }
+              
+        cnt++;
     }
 
 
