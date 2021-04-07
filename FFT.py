@@ -6,9 +6,9 @@ import time
 serdev = '/dev/ttyACM0'
 s = serial.Serial(serdev)
 
-#line1 = s.readline()
-#line2 = s.readline()
-#time2 = float(line2)
+line1 = s.readline()
+line2 = s.readline()
+mode = int(line2)
 
 #print(line2)
 #print(time2)
@@ -22,6 +22,7 @@ t3 = np.hstack([np.arange(0,40/1000,1/1000) , np.arange(40/1000,200/1000,4/1000)
 t4 = np.hstack([np.arange(0,80/1000,2/1000) , np.arange(80/1000,160/1000,2/1000), np.arange(160/1000,240/1000,2/1000)])
 
 
+
 #y = np.hstack([np.arange(0,10/1000,0.25/1000) , np.arange(10/1000,230/1000,5.5/1000), np.arange(230/1000,240/1000,0.25/1000)])
 
 y1 = np.hstack([np.arange(0,10/1000,0.25/1000) , np.arange(10/1000,230/1000,5.5/1000), np.arange(230/1000,240/1000,0.25/1000)])
@@ -30,7 +31,21 @@ y3 = np.hstack([np.arange(0,40/1000,1/1000) , np.arange(40/1000,200/1000,4/1000)
 y4 = np.hstack([np.arange(0,80/1000,2/1000) , np.arange(80/1000,160/1000,2/1000), np.arange(160/1000,240/1000,2/1000)])
 #y = np.arange(0,480/1000,Ts) # signal vector; create Fs samples
 
-print(t)
+if (mode == 0):
+    t = t1
+    y = y1
+if (mode == 1):
+    t = t2
+    y=y2
+if (mode == 2):
+    t = t3
+    y=y3
+if (mode == 3):
+    t = t4
+    y=y4
+
+
+#print(t)
 
 n = len(y) # length of the signal
 k = np.arange(n)

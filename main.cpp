@@ -95,9 +95,9 @@ void doDAC()
             wait_us(delay_time);
         }   
 
-        if (cnt == 22) {
-//            printf("%f\r\n", launch_time);
-//            printf("%f\r\n", launch_time);
+        if (cnt == 21) {
+            printf("%d\r\n", mode);
+            printf("%d\r\n", mode);
             for (k = 0; k < 240; k++)
                 printf("%f\r\n", ADCdata[k]);
         }
